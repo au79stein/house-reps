@@ -3,6 +3,7 @@
 ###  RG ignores
 rg*.*
 rg-*.*
+rg-*
 ### My Secrets ###
 .secrets
 .secrets/
