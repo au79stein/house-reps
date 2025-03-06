@@ -21,19 +21,24 @@ html = """
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;  /* Add font-size to table */
+            font-size: 14px;  /* Table font size */
         }
         th, td {
             padding: 8px;
             text-align: left;
             border: 1px solid #ddd;
-            font-size: 14px;  /* Add font-size to table cells */
         }
-        .blue {
-            color: blue;
+        .red-row {
+            background-color: #f8d7da;  /* Light red background for 'R' Party */
+        }
+        .blue-row {
+            background-color: #cce5ff;  /* Light blue background for 'D' Party */
         }
         .red {
-            color: red;
+            color: red;  /* Red text color for 'R' in Party column */
+        }
+        .blue {
+            color: blue;  /* Blue text color for 'D' in Party column */
         }
     </style>
 </head>
@@ -47,14 +52,21 @@ html = """
 
 # Add rows to table
 for row in rows:
-    html += "<tr>"
+    if row[2].strip() == 'R':  # Check if it's the Party column (index 2) and value is 'R'
+        html += "<tr class='red-row'>"  # Apply 'red-row' class to the entire row
+    elif row[2].strip() == 'D':  # Check if it's the Party column and value is 'D'
+        html += "<tr class='blue-row'>"  # Apply 'blue-row' class to the entire row
+    else:
+        html += "<tr>"
+
     for i, cell in enumerate(row):
-        if i == 2 and cell.strip() == 'R':  # Check if it's the Party column (index 2) and value is 'R'
-            html += f"<td class='red'>{cell.strip()}</td>"
-        elif i == 2 and cell.strip() == 'D':  # Check if it's the Party column (index 2) and value is 'R'
-            html += f"<td class='blue'>{cell.strip()}</td>"
+        if i == 2 and cell.strip() == 'R':  # Check if it's the Party column and value is 'R'
+            html += f"<td class='red'>{cell.strip()}</td>"  # Color 'R' red
+        elif i == 2 and cell.strip() == 'D':  # Check if it's the Party column and value is 'D'
+            html += f"<td class='blue'>{cell.strip()}</td>"  # Color 'D' blue
         else:
-            html += f"<td class>{cell.strip()}</td>"
+            html += f"<td>{cell.strip()}</td>"
+
     html += "</tr>\n"
 
 html += """
@@ -62,7 +74,6 @@ html += """
 </body>
 </html>
 """
-
 # Output the HTML
 print(html)
 
