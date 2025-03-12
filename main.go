@@ -22,23 +22,11 @@ func isDistrictNumberInName(name string) bool {
 
 func extractTableRows(doc *goquery.Document) {
 	// Find the table with the specific class inside the 'view-content' div
-	//RG: doc.Find(".view-content table").Each(func(i int, s *goquery.Selection) {
-	//doc.Find(".view-content table views-field views-field-value-1 views-field-value-2'").Each(func(i int, s *goquery.Selection) {
-	//doc.Find(".view-content table td #view-value-1-table-column,views-field,views-field-value-1,views-field-value-2").Each(func(i int, s *goquery.Selection) {
-	///////doc.Find(".view-content table td[headers^=view-value-1-table-column]").Each(func(i int, s *goquery.Selection) {
 	doc.Find(".view-content table[id^='housegov_reps_by_name-block_default']").Each(func(i int, s *goquery.Selection) {
-		//RG: fmt.Print(">>> ", s.Text(), "\n")
-		// Check if we found a table
 		if s.Length() == 0 {
 			fmt.Println("No tables found!")
 			return
 		}
-
-		//RG: fmt.Println(s.Text())
-
-		// Print column headers once
-		//fmt.Printf("%-25s %-20s %-7s %-15s %-20s %s\n", "Name", "District", "Party", "Office Room", "Phone", "Committee")
-		//fmt.Println("-----------------------------------------------------------------------------------------------")
 
 		// Iterate through each row in the table
 		s.Find("tbody tr").Each(func(i int, row *goquery.Selection) {
@@ -69,7 +57,6 @@ func extractTableRows(doc *goquery.Document) {
 }
 
 func main() {
-	// Replace with the URL of the page you want to scrape
 	url := "https://www.house.gov/representatives"
 
 	// Make an HTTP request and load the document
